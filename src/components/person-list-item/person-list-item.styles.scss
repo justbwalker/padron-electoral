@@ -1,0 +1,21 @@
+.person-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+  background: rgb(169, 206, 255);
+}
+
+.person-list-item:nth-child(even) {
+  background: #fff;
+}
+
+.field {
+  width: 160px;
+  margin: 1px;
+  padding: 4px;
+  overflow: hidden;
+  display: inline-block;
+  line-height: 40px;
+}
