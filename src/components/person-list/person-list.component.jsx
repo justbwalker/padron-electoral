@@ -1,48 +1,24 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+
+import { fetchPeople } from '../../redux/people/people.actions';
 
 import PersonListItem from "../person-list-item/person-list-item.component";
 
 import "./person-list.styles.scss";
 
 class PersonList extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      persons: []
-    };
-  }
-
   componentDidMount() {
-    let persons = [];
-    persons.push({
-      id: 1,
-      firstName: "Brian",
-      lastName: "Walker",
-      mothersLastName: "",
-      gender: "M",
-      state: "Chaco",
-      city: "Resistencia",
-      birthDate: Date.parse("1983-01-03")
-    });
-    persons.push({
-      id: 2,
-      firstName: "Juan",
-      lastName: "Perez",
-      mothersLastName: "Perezin",
-      gender: "M",
-      state: "Chaco",
-      city: "Resistencia",
-      birthDate: Date.parse("1982-01-03")
-    });
-
-    this.setState({ persons: persons });
+    if (this.props.people.length === 0) {
+      this.props.fetchPeople();
+    }
   }
 
   render() {
     return (
       <div className="person-list">
-        {this.state.persons.map(person => (
+        {this.props.people.map(person => (
           <PersonListItem key={person.id} {...person}></PersonListItem>
         ))}
       </div>
@@ -50,4 +26,17 @@ class PersonList extends React.Component {
   }
 }
 
-export default PersonList;
+PersonList.propTypes = {
+  fetchPeople: PropTypes.func.isRequired,
+  people: PropTypes.array.isRequired,
+};
+
+PersonList.defaultProps = {
+  people:  [ ]    
+};
+
+const mapStateToProps = state => ({
+  people: state.people
+});
+
+export default connect(mapStateToProps, { fetchPeople })(PersonList);
