@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Route, withRouter } from "react-router-dom";
 
 import Button from "../button/button.component";
 
 import "./person-list-item.styles.scss";
 
-const PersonListItem = ({ id, firstName, lastName, mothersLastName, gender, state, city, birthDate, deleteAction }) => {
+const PersonListItem = ({ history, id, firstName, lastName, mothersLastName, gender, state, city, birthDate, deleteAction }) => {
   const getAge = date => {
     var diff = (Date.now() - new Date(birthDate)) / 1000;
     diff /= 60 * 60 * 24;
@@ -14,7 +15,7 @@ const PersonListItem = ({ id, firstName, lastName, mothersLastName, gender, stat
 
   const handleOnDelete = () => {
     deleteAction(id);
-  }
+  };
 
   const age = getAge;
   return (
@@ -27,7 +28,7 @@ const PersonListItem = ({ id, firstName, lastName, mothersLastName, gender, stat
       <div className="field">{city}</div>
       <div className="field">{new Date(birthDate).toISOString().substring(0, 10)}</div>
       <div className="field">{getAge(age)}</div>
-      <Button>Editar</Button>
+      <Button onClick={() => history.push(`/${id}`)}>Editar</Button>
       <Button onClick={handleOnDelete}>Eliminar</Button>
     </div>
   );
@@ -42,7 +43,7 @@ PersonListItem.propTypes = {
   state: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   birthDate: PropTypes.number.isRequired,
-  deleteAction: PropTypes.func.isRequired,
+  deleteAction: PropTypes.func.isRequired
 };
 
-export default PersonListItem;
+export default withRouter(PersonListItem);

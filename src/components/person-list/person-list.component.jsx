@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { fetchPeople, deletePerson } from '../../redux/people/people.actions';
+import { fetchPeople, updatePerson, deletePerson } from "../../redux/people/people.actions";
 
 import PersonListItem from "../person-list-item/person-list-item.component";
 
@@ -28,16 +29,20 @@ class PersonList extends React.Component {
 
 PersonList.propTypes = {
   fetchPeople: PropTypes.func.isRequired,
+  updatePerson: PropTypes.func.isRequired,
   deletePerson: PropTypes.func.isRequired,
-  people: PropTypes.array.isRequired,
+  people: PropTypes.array.isRequired
 };
 
 PersonList.defaultProps = {
-  people:  [ ]    
+  people: []
 };
 
 const mapStateToProps = state => ({
   people: state.people
 });
 
-export default connect(mapStateToProps, { fetchPeople, deletePerson })(PersonList);
+export default connect(
+  mapStateToProps,
+  { fetchPeople, updatePerson, deletePerson }
+)(PersonList);
