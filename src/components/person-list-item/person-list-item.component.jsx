@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Button from "../button/button.component";
+
 import "./person-list-item.styles.scss";
 
 const PersonListItem = ({ firstName, lastName, mothersLastName, gender, state, city, birthDate }) => {
@@ -21,6 +23,8 @@ const PersonListItem = ({ firstName, lastName, mothersLastName, gender, state, c
       <div className="field">{city}</div>
       <div className="field">{new Date(birthDate).toISOString().substring(0, 10)}</div>
       <div className="field">{getAge(age)}</div>
+      <Button>Editar</Button>
+      <Button>Eliminar</Button>
     </div>
   );
 };
