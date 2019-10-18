@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 
-import { fetchPeople } from '../../redux/people/people.actions';
+import { fetchPeople, deletePerson } from '../../redux/people/people.actions';
 
 import PersonListItem from "../person-list-item/person-list-item.component";
 
@@ -19,7 +19,7 @@ class PersonList extends React.Component {
     return (
       <div className="person-list">
         {this.props.people.map(person => (
-          <PersonListItem key={person.id} {...person}></PersonListItem>
+          <PersonListItem key={person.id} deleteAction={this.props.deletePerson} {...person}></PersonListItem>
         ))}
       </div>
     );
@@ -28,6 +28,7 @@ class PersonList extends React.Component {
 
 PersonList.propTypes = {
   fetchPeople: PropTypes.func.isRequired,
+  deletePerson: PropTypes.func.isRequired,
   people: PropTypes.array.isRequired,
 };
 
@@ -39,4 +40,4 @@ const mapStateToProps = state => ({
   people: state.people
 });
 
-export default connect(mapStateToProps, { fetchPeople })(PersonList);
+export default connect(mapStateToProps, { fetchPeople, deletePerson })(PersonList);

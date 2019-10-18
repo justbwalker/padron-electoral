@@ -5,12 +5,16 @@ import Button from "../button/button.component";
 
 import "./person-list-item.styles.scss";
 
-const PersonListItem = ({ firstName, lastName, mothersLastName, gender, state, city, birthDate }) => {
+const PersonListItem = ({ id, firstName, lastName, mothersLastName, gender, state, city, birthDate, deleteAction }) => {
   const getAge = date => {
     var diff = (Date.now() - new Date(birthDate)) / 1000;
     diff /= 60 * 60 * 24;
     return Math.abs(Math.round(diff / 365.25));
   };
+
+  const handleOnDelete = () => {
+    deleteAction(id);
+  }
 
   const age = getAge;
   return (
@@ -24,7 +28,7 @@ const PersonListItem = ({ firstName, lastName, mothersLastName, gender, state, c
       <div className="field">{new Date(birthDate).toISOString().substring(0, 10)}</div>
       <div className="field">{getAge(age)}</div>
       <Button>Editar</Button>
-      <Button>Eliminar</Button>
+      <Button onClick={handleOnDelete}>Eliminar</Button>
     </div>
   );
 };
@@ -36,7 +40,8 @@ PersonListItem.propTypes = {
   gender: PropTypes.string.isRequired,
   state: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
-  birthDate: PropTypes.number.isRequired
+  birthDate: PropTypes.number.isRequired,
+  deleteAction: PropTypes.func.isRequired,
 };
 
 export default PersonListItem;

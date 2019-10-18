@@ -22,3 +22,8 @@ export const fetchPeople = () => {
         birthDate: Date.parse("1982-01-03")
       }] };
   };
+
+  export const deletePerson = person => ({
+    type: PeopleActionTypes.DELETE_PERSON,
+    payload: person
+  });
