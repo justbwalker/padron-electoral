@@ -34,6 +34,7 @@ const PersonListItem = ({ id, firstName, lastName, mothersLastName, gender, stat
 };
 
 PersonListItem.propTypes = {
+  id: PropTypes.number.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   mothersLastName: PropTypes.string.isRequired,
