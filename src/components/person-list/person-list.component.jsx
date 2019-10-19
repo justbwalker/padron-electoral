@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { fetchPeople, updatePerson, deletePerson } from "../../redux/people/people.actions";
+import { getPeople } from "../../redux/people/people.selectors";
 
 import PersonListItem from "../person-list-item/person-list-item.component";
 
@@ -38,7 +39,7 @@ PersonList.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  people: state.people
+  people: getPeople(state)
 });
 
 export default connect(

@@ -12,7 +12,7 @@ export const fetchPeople = () => {
         gender: "M",
         state: "Chaco",
         city: "Resistencia",
-        birthDate: Date.parse("1983-01-03")
+        birthDate: 410400000000
       },
       {
         id: "2",
@@ -22,7 +22,7 @@ export const fetchPeople = () => {
         gender: "M",
         state: "Chaco",
         city: "Resistencia",
-        birthDate: Date.parse("1982-01-03")
+        birthDate: 378864000000
       }
     ]
   };
@@ -33,12 +33,10 @@ export const insertPerson = person => ({
   payload: person
 });
 
-export const updatePerson = person => {
-  return {
-    type: PeopleActionTypes.UPDATE_PERSON,
-    payload: person
-  };
-};
+export const updatePerson = person => ({
+  type: PeopleActionTypes.UPDATE_PERSON,
+  payload: person
+});
 
 export const deletePerson = person => ({
   type: PeopleActionTypes.DELETE_PERSON,

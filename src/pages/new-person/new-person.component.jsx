@@ -1,15 +1,17 @@
 import React from "react";
 
-import "./new-person.styles.scss"
+import PersonEdit from "../../components/person-edit/person-edit.component";
+
+import "./new-person.styles.scss";
 
 class NewPerson extends React.Component {
-    render() {
-        return (
-            <div>
-                
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="new-person">
+        <PersonEdit />
+      </div>
+    );
+  }
 }
 
 export default NewPerson;
