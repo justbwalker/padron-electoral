@@ -77,35 +77,50 @@ class PersonEdit extends React.Component {
 
     return (
       <div className="person-edit">
-        <form onSubmit={this.handleSubmit}>
-          <label>Nombre</label>
-          <input className="form-input" name="firstName" type="text" onChange={this.handleChange} value={firstName} />
-          <label>Apellido paterno</label>
-          <input className="form-input" name="lastName" type="text" onChange={this.handleChange} value={lastName} />
-          <label>Apellido materno</label>
-          <input className="form-input" name="mothersLastName" type="text" onChange={this.handleChange} value={mothersLastName} />
-          <label>Sexo</label>
-          <div className="radio">
-            <label>
-              <input name="gender" type="radio" onChange={this.handleChange} value="M" checked={gender === "M"} />M
-            </label>
-            <label>
-              <input name="gender" type="radio" onChange={this.handleChange} value="F" checked={gender === "F"} />F
-            </label>
+        <form className="person-edit-form" onSubmit={this.handleSubmit}>
+          <div className="edit-field">
+            <label>Nombre</label>
+            <input className="form-input" name="firstName" type="text" onChange={this.handleChange} value={firstName} />
           </div>
-          <label>Estado</label>
-          <select name="state" onChange={this.handleChange} value={state}>
-            <option value="Buenos Aires">Buenos Aires</option>
-            <option value="Chaco">Chaco</option>
-            <option value="Corrientes">Corrientes</option>
-          </select>
-
-          <label>Ciudad</label>
-          <input className="form-input" name="city" type="text" onChange={this.handleChange} value={city} />
-          <label>Fecha de nacimiento</label>
-          <DatePicker selected={new Date(birthDate)} onChange={this.handleDateChange} />
-          <Button type="submit">Guardar</Button>
-          <Button onClick={this.cancel}>Cancelar</Button>
+          <div className="edit-field">
+            <label>Apellido paterno</label>
+            <input className="form-input" name="lastName" type="text" onChange={this.handleChange} value={lastName} />
+          </div>
+          <div className="edit-field">
+            <label>Apellido materno</label>
+            <input className="form-input" name="mothersLastName" type="text" onChange={this.handleChange} value={mothersLastName} />
+          </div>
+          <div className="edit-field">
+            <label>Sexo</label>
+            <div className="radio">
+              <label>
+                <input name="gender" type="radio" onChange={this.handleChange} value="M" checked={gender === "M"} />M
+              </label>
+              <label>
+                <input name="gender" type="radio" onChange={this.handleChange} value="F" checked={gender === "F"} />F
+              </label>
+            </div>
+          </div>
+          <div className="edit-field">
+            <label>Estado</label>
+            <select name="state" onChange={this.handleChange} value={state}>
+              <option value="Buenos Aires">Buenos Aires</option>
+              <option value="Chaco">Chaco</option>
+              <option value="Corrientes">Corrientes</option>
+            </select>
+          </div>
+          <div className="edit-field">
+            <label>Ciudad</label>
+            <input className="form-input" name="city" type="text" onChange={this.handleChange} value={city} />
+          </div>
+          <div className="edit-field">
+            <label>Fecha de nacimiento</label>
+            <DatePicker selected={new Date(birthDate)} onChange={this.handleDateChange} />
+          </div>
+          <div className="buttons">
+            <Button type="submit">Guardar</Button>
+            <Button onClick={this.cancel}>Cancelar</Button>
+          </div>
         </form>
       </div>
     );
