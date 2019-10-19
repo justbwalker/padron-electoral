@@ -1,29 +1,56 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import { updatePerson } from "../../redux/people/people.actions";
+import { insertPerson, updatePerson } from "../../redux/people/people.actions";
 import { getPersonById } from "../../redux/people/people.selectors";
+
+import Button from "../button/button.component";
 
 import "./person-edit.styles.scss";
 
 class PersonEdit extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.setState({
-        firstName: "",
-        lastName: "",
-        mothersLastName: "",
-        gender: "",
-        state: "",
-        city: "",
-        birthDate: ""
+
+    this.state = {
+      id: 0,
+      firstName: "",
+      lastName: "",
+      mothersLastName: "",
+      gender: "",
+      state: "",
+      city: "",
+      birthDate: ""
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.person) {
+      const { id, firstName, lastName, mothersLastName, gender, state, city, birthDate } = this.props.person;
+
+      this.setState({
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        mothersLastName: mothersLastName,
+        gender: gender,
+        state: state,
+        city: city,
+        birthDate: birthDate
       });
+    }
   }
 
   handleSubmit = event => {
     event.preventDefault();
+
+    if (this.props.id) {
+      this.props.updatePerson(this.state);
+    } else {
+      this.props.insertPerson(this.state);
+    }
 
     this.setState({
       firstName: "",
@@ -37,52 +64,65 @@ class PersonEdit extends React.Component {
   };
 
   handleChange = event => {
-      
     const { value, name } = event.target;
-    console.log({ [name]: value })
     this.setState({ [name]: value });
   };
 
+  cancel = () => {
+    this.props.history.goBack();
+
+    this.setState({
+      firstName: "",
+      lastName: "",
+      mothersLastName: "",
+      gender: "",
+      state: "",
+      city: "",
+      birthDate: ""
+    });
+  };
+
   render() {
-    
+    const { firstName, lastName, mothersLastName, gender, state, city, birthDate } = this.state;
+
     return (
       <div className="person-edit">
         <form onSubmit={this.handleSubmit}>
           <label>Nombre</label>
-          <input className="form-input" name="firstName" type="text" onChange={this.handleChange} value={this.firstName} />
+          <input className="form-input" name="firstName" type="text" onChange={this.handleChange} value={firstName} />
           <label>Apellido paterno</label>
-          <input className="form-input" name="lastName" type="text" onChange={this.handleChange} value={this.lastName} />
+          <input className="form-input" name="lastName" type="text" onChange={this.handleChange} value={lastName} />
           <label>Apellido materno</label>
-          <input className="form-input" name="mothersLastName" type="text" onChange={this.handleChange} value={this.mothersLastName} />
+          <input className="form-input" name="mothersLastName" type="text" onChange={this.handleChange} value={mothersLastName} />
           <label>Sexo</label>
-          <input className="form-input" name="gender" type="text" onChange={this.handleChange} value={this.gender} />
+          <input className="form-input" name="gender" type="text" onChange={this.handleChange} value={gender} />
           <label>Estado</label>
-          <input className="form-input" name="state" type="text" onChange={this.handleChange} value={this.state} />
+          <input className="form-input" name="state" type="text" onChange={this.handleChange} value={state} />
           <label>Ciudad</label>
-          <input className="form-input" name="city" type="text" onChange={this.handleChange} value={this.city} />
+          <input className="form-input" name="city" type="text" onChange={this.handleChange} value={city} />
           <label>Fecha de nacimiento</label>
-          <input className="form-input" name="birthDate" type="text" onChange={this.handleChange} value={this.birthDate} />
+          <input className="form-input" name="birthDate" type="text" onChange={this.handleChange} value={birthDate} />
+          <Button type="submit">Guardar</Button>
+          <Button onClick={this.cancel}>Cancelar</Button>
         </form>
       </div>
     );
   }
 }
-/*
-PersonEdit.propTypes = {    
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  mothersLastName: PropTypes.string.isRequired,
-  gender: PropTypes.string.isRequired,
-  state: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  birthDate: PropTypes.number.isRequired
+
+PersonEdit.propTypes = {
+  id: PropTypes.string,
+  insertPerson: PropTypes.func.isRequired,
+  updatePerson: PropTypes.func.isRequired
 };
-*/
+
 const mapStateToProps = (state, props) => ({
   person: getPersonById(state, props)
 });
 
-export default connect(
-  mapStateToProps,
-  { updatePerson }
-)(PersonEdit);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { insertPerson, updatePerson }
+  )(PersonEdit)
+);

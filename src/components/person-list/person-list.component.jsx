@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { fetchPeople, updatePerson, deletePerson } from "../../redux/people/people.actions";
 

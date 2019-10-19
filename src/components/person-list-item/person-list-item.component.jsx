@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import Button from "../button/button.component";
 
@@ -35,7 +35,7 @@ const PersonListItem = ({ history, id, firstName, lastName, mothersLastName, gen
 };
 
 PersonListItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   mothersLastName: PropTypes.string.isRequired,
